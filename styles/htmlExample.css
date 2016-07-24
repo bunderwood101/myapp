@@ -1,0 +1,63 @@
+.htmlExampleContainer
+{
+  margin:40px;
+}
+
+@media  screen and (max-width: 500px) {
+  .htmlExampleContainer
+  {
+    margin:0px;
+  }
+
+  .mdl-card
+  {
+    width:90% !important;
+  }
+
+  .mdl-card__supporting-text
+  {
+    width:100% !important;
+  }
+}
+
+
+
+
+.cust_playerAvatar
+{
+  height:350px;
+  background-size: cover;
+}
+
+.cust_playerAvatar > h2
+{
+  align-self:flex-start;
+}
+
+
+.cust_playerAvatar_icon
+{
+background-size:cover;
+height: 40px;
+width: 40px;
+box-sizing: border-box;
+border-radius: 50%;
+background-color: #757575;
+font-size: 40px;
+color: #fff;
+margin-right:16px;
+}
+
+.cust_playerList
+{
+  width:300px;
+}
+
+.cust_playerList .mix{
+	display: none;
+}
+
+.playerField
+{
+  width:150px !important;
+}

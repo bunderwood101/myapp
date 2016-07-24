@@ -1,0 +1,28 @@
+{
+  "name": "sockets",
+  "version": "0.0.1",
+  "description": "socket.io example app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bunderwood101/socket.git"
+  },
+  "author": "Ben Underwood",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bunderwood101/socket/issues"
+  },
+  "homepage": "https://github.com/bunderwood101/socket#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "fs": "0.0.2",
+    "http": "0.0.0",
+    "mongodb": "^2.2.1",
+    "passport-google-oauth": "^1.0.0",
+    "socket.io": "^1.4.8",
+    "url": "^0.11.0"
+  }
+}

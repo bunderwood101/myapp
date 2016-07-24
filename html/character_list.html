@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Character Card</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.mixitup/latest/jquery.mixitup.min.js"></script>
+    <link rel="stylesheet" href="../styles/htmlExample.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+  </head>
+  <body>
+
+    <div class="htmlExampleContainer">
+
+      <div class="demo-list-action mdl-list cust_playerList">
+
+    <div class="mdl-list__item cust_Player mix" data-initiative=10 data-playerid=1>
+      <span class="mdl-list__item-primary-content">
+        <i class="cust_playerAvatar_icon mdl-badge mdl-badge--overlap" style="background-image:url('images/avatars/cleric.jpg');"  data-badge=10></i>
+        <span>The Cleric</span>
+      </span>
+      <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+    </div>
+
+
+    <div class="mdl-list__item cust_Player mix" data-initiative=8 data-playerid=0>
+      <span class="mdl-list__item-primary-content">
+        <i class="cust_playerAvatar_icon mdl-badge mdl-badge--overlap" style="background-image:url('images/avatars/binky.jpg');" data-badge=8></i>
+        <span>Binky</span>
+      </span>
+      <button id="demo-menu-lower-left"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">more_vert</i>
+      </button>
+
+      <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+          for="demo-menu-lower-left">
+        <li class="mdl-menu__item">Some Action</li>
+        <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Another Action</li>
+        <li disabled class="mdl-menu__item">Disabled Action</li>
+        <li class="mdl-menu__item">Yet Another Action</li>
+      </ul>
+    </div>
+
+
+    <div class="mdl-list__item cust_Player mix" data-initiative=4 data-playerid=0>
+      <span class="mdl-list__item-primary-content">
+        <i class="cust_playerAvatar_icon mdl-badge mdl-badge--overlap" style="background-image:url('images/avatars/shadowjack.jpg');" data-badge=4></i>
+        <span>Shadowjack</span>
+      </span>
+      <span class="mdl-list__item-secondary-content">
+        <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+    </span>
+    </div>
+  </div>
+
+</div>
+
+  </body>
+
+  <script>
+
+    $(document).ready(function(){
+      //https://mixitup.kunkalabs.com/docs/#method-sort
+      // InitiativeUpdated();
+      $('.cust_playerList').mixItUp({
+    	animation: {
+    		effects: 'fade translateZ(500px)',
+    		duration: 300
+    	},
+    	selectors: {
+
+    	},
+      layout: {
+        display: 'flex'
+      }
+    });
+    });
+
+    var socket = io.connect();
+
+    socket.on('InitiativeUpdate', function(data){
+
+      $.each($('.cust_Player'),function(index,Player){
+      // $.each($('.cust_Player > span > i'),function(index,Player){
+
+        var playerId = $(Player).attr('data-playerId');
+
+        if(playerId == data.PlayerID)
+        {
+          console.log(Player);
+          console.log($(Player).find('span > i'));
+          $(Player).find('span > i').attr('data-badge',data.Initiative);
+          $(Player).attr('data-initiative',data.Initiative);
+          //InitiativeUpdated();
+          $('.cust_playerList').mixItUp('sort', 'initiative:asc');
+        }
+
+      });
+
+    });
+
+    function InitiativeUpdated(){
+          var sortList = $('.cust_Player');
+          sortList.sort(function(a,b){
+          return a.dataset.initiative - b.dataset.initiative
+    }).appendTo('.cust_playerList')
+    console.log(sortList);
+    }
+
+    function PlayerJoined(){
+      $('#Container').mixItUp('append', $newObject, {filter: '#NewObject'})
+    }
+
+
+  </script>
+
+
+  </html>
